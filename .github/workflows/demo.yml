@@ -30,13 +30,17 @@ jobs:
         with:
           name: dist-files
           #localização do artefato
-          path: |
-            dist
-            package.json
+          path: dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files #mesmo nome dado para o upload file
+      - name: output contents
+        run: ls 
       - name: Deploy
         run: echo "Deploying..."
